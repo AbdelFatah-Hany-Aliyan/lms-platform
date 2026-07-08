@@ -1,0 +1,109 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(STUDENT)
+  createdAt DateTime @default(now())
+
+  courses     Course[]
+  enrollments Enrollment[]
+  studentProgress StudentProgress[]
+}
+
+enum Role {
+  STUDENT
+  ADMIN
+}
+
+model Course {
+  id           String   @id @default(uuid())
+  title        String
+  description  String
+  imageUrl    String?
+  price        Float
+  published    Boolean  @default(false)
+  instructorId String
+  createdAt    DateTime @default(now())
+
+  instructor  User         @relation(fields: [instructorId], references: [id], onDelete: Cascade)
+  lessons     Lesson[]
+  enrollments Enrollment[]
+
+  chapters Chapter[]
+}
+
+model Chapter {
+  id        String   @id @default(uuid())
+  title     String
+  position  Int      @default(0)
+  isPublished Boolean @default(false)
+  courseId  String
+
+  updatedAt   DateTime  @default(now()) @updatedAt
+  createdAt DateTime @default(now())
+
+  lessons Lesson[]
+  course  Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@index([courseId])
+}
+
+model Lesson {
+  id       String  @id @default(uuid())
+  chapterId String
+  courseId String
+  title    String
+  position Int
+  videoUrl String?
+  content  String?
+  isPublished Boolean @default(false)
+
+
+  updatedAt   DateTime  @default(now()) @updatedAt
+  createdAt DateTime @default(now())
+
+  chapter Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  course  Course  @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  studentProgress StudentProgress[]
+
+  @@index([chapterId])
+}
+
+model Enrollment {
+  id         String   @id @default(uuid())
+  studentId  String
+  courseId   String
+  paymentId  String   @unique
+  amountPaid Float
+  enrolledAt DateTime @default(now())
+
+  student User   @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  course  Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([studentId, courseId])
+}
+
+model StudentProgress {
+  id          String   @id @default(uuid())
+  studentId   String
+  lessonId    String
+  isCompleted Boolean  @default(false)
+
+  updatedAt   DateTime @default(now()) @updatedAt
+  createdAt   DateTime @default(now())
+
+  student User   @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  lesson      Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+  @@unique([studentId, lessonId])
+  @@index([lessonId])
+}
