@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth-options";
 import { db } from "@/lib/db";
+import crypto from "crypto";
 
 export async function POST(
     req: Request,
@@ -38,16 +39,18 @@ export async function POST(
         }
 
         if (!course.price || course.price === 0) {
+            const uniqueFreePaymentId = `FREE_${crypto.randomUUID()}`;
+
             await db.enrollment.create({
                 data: {
                     studentId: session.user.id,
                     courseId: courseId,
-                    paymentId: "FREE_ACCESS",
+                    paymentId: uniqueFreePaymentId,
                     amountPaid: 0,
                 }
             });
 
-            return NextResponse.json({ url: `/explore/${courseId}`, isFree: true });
+            return NextResponse.json({ url: `/dashboard/student/explore/${courseId}`, isFree: true });
         }
 
         const paymentUrl = `/dashboard/student/explore/${courseId}/payment`;
