@@ -1,7 +1,9 @@
 'use client'
 
-import {useRoute} from ''
+import { useRouter } from "next/navigation";
 
-export default async function LandingPage() {
+export default async function MainAerway() {
+  const router = useRouter()
+  router.push('/login')
   return <h1>Hello, World!</h1>
 }
