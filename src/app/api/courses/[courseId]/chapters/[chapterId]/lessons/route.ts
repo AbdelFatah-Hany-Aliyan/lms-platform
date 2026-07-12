@@ -5,7 +5,7 @@ import { authOptions } from "@/lib/auth-options";
 
 export async function POST (
     req: Request,
-    { params }: { params: { courseId: string; chapterId: string } }
+    { params }: { params: Promise<{ courseId: string; chapterId: string }> }
 ){
     try{
         const session = await getServerSession(authOptions);
