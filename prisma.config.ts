@@ -1,6 +1,7 @@
-module.exports = {
-  plugins: {
-    tailwindcss: {},
-    autoprefixer: {},
+import "dotenv/config"
+
+export default {
+  datasource: {
+    url: process.env.DATABASE_URL,
   },
-}
+};
