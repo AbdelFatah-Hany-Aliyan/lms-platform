@@ -1,17 +1,14 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig & {
-  turbo: {
-    rules: Record<string, { as: string }>;
-  };
-} = {
-  turbo: {
+const nextConfig: NextConfig = {
+
+  turbopack: {
     rules: {
       '*.md': {
-        as: 'asset/source'
-      }
-    }
-  }
+        type: 'asset',
+      },
+    },
+  },
 };
 
 export default nextConfig;

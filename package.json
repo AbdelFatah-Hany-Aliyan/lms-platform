@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --webpack",
-    "build": "node -e \"const fs = require('fs'); ['node_modules/@uploadthing/react/README.md', 'node_modules/@uploadthing/mime-types/README.md'].forEach(f => fs.existsSync(f) && fs.unlinkSync(f))\" && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "eslint"
   },
