@@ -83,7 +83,7 @@ export default function RegisterPage() {
                             placeholder="Name"
                             value={formData.name}
                             onChange={(e) => setFormData({...formData, name: e.target.value})}
-                            className="w-full rounded-lg border border-gray-300 p-3 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                            className="w-full rounded-lg border text-black border-gray-300 p-3 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
                         />
                     </div>
                     <div>
@@ -93,7 +93,7 @@ export default function RegisterPage() {
                             placeholder="Email"
                             value={formData.email}
                             onChange={(e) => setFormData({...formData, email: e.target.value})}
-                            className="w-full rounded-lg border border-gray-300 p-3 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                            className="w-full rounded-lg border text-black border-gray-300 p-3 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
                         />
                     </div>
                     <div>
@@ -103,7 +103,7 @@ export default function RegisterPage() {
                             placeholder="Password"
                             value={formData.password}
                             onChange={(e) => setFormData({...formData, password: e.target.value})}
-                            className="w-full rounded-lg border border-gray-300 p-3 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                            className="w-full rounded-lg border text-black border-gray-300 p-3 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
                         />
                     </div>
                     <button type="submit" disabled={loading} className="mt-6 w-full rounded-xl bg-blue-600 py-3 font-bold text-white transition hover:bg-blue-700 disabled:bg-blue-300">
